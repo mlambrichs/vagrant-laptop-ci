@@ -1,5 +1,8 @@
 #!/bin/bash
 
+echo "-------- Check for Updates ---------------"
+echo "------------------------------------------"
+yum -y update
 
 if [ ! -f /usr/bin/java ]; 
 then
@@ -43,25 +46,25 @@ else
 fi
 
 
-if [ ! -f /etc/init.d/tomcat6 ]; 
-then
-	echo "-------- PROVISIONING TOMCAT ------------"
-	echo "-----------------------------------------"
+# if [ ! -f /etc/init.d/tomcat6 ]; 
+# then
+# 	echo "-------- PROVISIONING TOMCAT ------------"
+# 	echo "-----------------------------------------"
  
  
-	## Install Tomcat (port 8080) 
-	# This gives us something to deploy builds into
-	# CATALINA_BASE=/var/lib/tomcat7
-	# CATALINE_HOME=/usr/share/tomcat7
-	#export JAVA_HOME="/usr/lib/jvm/java"
-	yum install -y install tomcat6
+# 	## Install Tomcat (port 8080) 
+# 	# This gives us something to deploy builds into
+# 	# CATALINA_BASE=/var/lib/tomcat7
+# 	# CATALINE_HOME=/usr/share/tomcat7
+# 	#export JAVA_HOME="/usr/lib/jvm/java"
+# 	yum install -y install tomcat6
  
-	# Work around a bug in the default tomcat start script
-	#sed -i 's/export JAVA_HOME/export JAVA_HOME=\"\/usr\/lib\/jvm\/java-7-oracle\"/g' /etc/init.d/tomcat7
-	service tomcat6 restart
-else
-	echo "CHECK - Tomcat already installed"
-fi
+# 	# Work around a bug in the default tomcat start script
+# 	#sed -i 's/export JAVA_HOME/export JAVA_HOME=\"\/usr\/lib\/jvm\/java-7-oracle\"/g' /etc/init.d/tomcat7
+# 	service tomcat6 restart
+# else
+# 	echo "CHECK - Tomcat already installed"
+# fi
  
 
 # if [ ! -f /var/lib/tomcat6/webapps/gitblit.war ]; 
@@ -84,7 +87,7 @@ then
 	## Download GitBlit JAR
     curl -L http://dl.bintray.com/gitblit/releases/gitblit-1.6.2.tar.gz -o /gitblit/gitblit-1.6.2.tar.gz
     tar zxf /gitblit/gitblit-1.6.2.tar.gz 
-    java -cp gitblit.jar com.gitblit.authority.Launcher --baseFolder data
+    java -cp gitblit.jar com.gitblit.authority.Launcher --baseFolder data &
 else
 	echo "CHECK - GitBlit already installed"
 fi
