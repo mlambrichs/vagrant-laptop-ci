@@ -22,8 +22,7 @@ Vagrant.configure("2") do |config|
   vb.customize ["modifyvm", :id, "--cpus", "2"]
   
   #Shares
-  config.vm.synced_folder "gitblit", "/gitblit"
-  config.vm.synced_folder "jenkins", "/var/lib/jenkins"
+  config.vm.synced_folder "tomcat", "/tomcat/webapps"
 
   #---Networking---
   # Assign this VM to a host-only network IP, allowing you to access it
