@@ -19,10 +19,6 @@ then
 	echo "-------- PROVISIONING TOMCAT ------------"
 	echo "-----------------------------------------" 
 	yum install -y install tomcat6 
-	mkdir /tomcat/webapps
-    chown tomcat:tomcat /tomcat/webapps
-	rmdir /var/lib/tomcat6/webapps
-	ln -s /tomcat/webapps /var/lib/tomcat6/webapps
 	service tomcat6 restart
 else
 	echo "CHECK - Tomcat already installed"
