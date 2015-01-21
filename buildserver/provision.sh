@@ -19,27 +19,37 @@ then
 	echo "-------- PROVISIONING TOMCAT ------------"
 	echo "-----------------------------------------" 
 	yum install -y install tomcat6 
-	service tomcat6 restart
+	# run tomcat as root because we don't care and it fixes the shared folder issue
+	sed -i 's/TOMCAT_USER=.*/TOMCAT_USER="root"/' /etc/init.d/tomcat6
 else
 	echo "CHECK - Tomcat already installed"
 fi
 
-if [ ! -f /tomcat/webapps/jenkins.war ]; 
+if [ ! -f /var/lib/tomcat6/webapps/jenkins.war ]; 
 then
 	echo "-------- PROVISIONING JENKINS ------------"
 	echo "------------------------------------------"
-    wget -O /tomcat/webapps/jenkins.war http://mirrors.jenkins-ci.org/war/latest/jenkins.war
-    service tomcat6 restart 
+    wget -q -O /var/lib/tomcat6/webapps/jenkins.war http://mirrors.jenkins-ci.org/war/latest/jenkins.war
+    sed -i '/<\/Context>/d' /etc/tomcat6/context.xml
+    echo "<Environment name="JENKINS_HOME" value="/var/lib/tomcat6/webapps/jenkins/" type="java.lang.String"/>" >> /etc/tomcat6/context.xml
+    echo "</Context>" >> /etc/tomcat6/context.xml   
+    service tomcat6 restart
+    sleep 60 
 else
 	echo "CHECK - Jenkins already installed"
 fi
 
-if [ ! -f /tomcat/webapps/gitblit.war ]; 
+if [ ! -f /var/lib/tomcat6/webapps/gitblit.war ]; 
 then
 	echo "-------- PROVISIONING GITBLIT ---------------"
 	echo "------------------------------------------"
-    wget  -O /tomcat/webapps/gitblit.war http://dl.bintray.com/gitblit/releases/gitblit-1.6.2.war
+    wget  -q -O /var/lib/tomcat6/webapps/gitblit.war http://dl.bintray.com/gitblit/releases/gitblit-1.6.2.war
     service tomcat6 restart
+    sleep 60
 else
 	echo "CHECK - GitBlit already installed"
 fi
+	echo "-------- RESTARTING TOMCAT ---------------"
+	echo "------------------------------------------"
+    sleep 60
+    service tomcat6 restart
