@@ -1,5 +1,11 @@
 #!/bin/bash
 
+echo "-------- Set Locale en_US.utf8 -----------"
+echo "------------------------------------------"
+sed -i 's/en_US\.UTF-8/en_US\.utf8/' /etc/sysconfig/i18n
+echo "LC_CTYPE="en_US.utf8"" >> /etc/sysconfig/i18n
+#sed -i 's/en_US\.UTF-8/en_US\.utf8/' /etc/profile.d/lang.sh 
+
 echo "-------- Check for Updates ---------------"
 echo "------------------------------------------"
 #yum -y update
