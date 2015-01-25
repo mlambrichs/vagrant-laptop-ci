@@ -1,14 +1,19 @@
 #!/bin/bash
 
+
 echo "-------- Set Locale en_US.utf8 -----------"
 echo "------------------------------------------"
-sed -i 's/en_US\.UTF-8/en_US\.utf8/' /etc/sysconfig/i18n
-echo "LC_CTYPE="en_US.utf8"" >> /etc/sysconfig/i18n
-#sed -i 's/en_US\.UTF-8/en_US\.utf8/' /etc/profile.d/lang.sh 
+echo "LANG="en_US.utf8"" > /etc/locale.conf
+echo "LC_CTYPE="en_US.utf8"" >> /etc/locale.conf 
 
-echo "-------- Check for Updates ---------------"
-echo "------------------------------------------"
-#yum -y update
+systemctl status firewalld.service |grep inactive 
+if [ $? != 0 ];
+    then 
+	echo "-------- Kill Firewall -------------------"
+	echo "------------------------------------------"
+	systemctl stop firewalld.service
+	systemctl disable firewalld.service
+fi
 
 if [ ! -f /usr/bin/java ]; 
 then
@@ -20,42 +25,75 @@ else
 	echo "CHECK - Java already installed"
 fi
 
-if [ ! -f /etc/init.d/tomcat6 ]; 
+if [ ! -f /usr/bin/wget ]; 
+then
+	echo "-------- PROVISIONING WGET ---------------"
+	echo "------------------------------------------"
+    yum -y install wget
+
+else
+	echo "CHECK - Wget already installed"
+fi
+
+
+if [ ! -f /usr/sbin/tomcat ]; 
 then
 	echo "-------- PROVISIONING TOMCAT ------------"
 	echo "-----------------------------------------" 
-	yum install -y install tomcat6 
+	yum install -y install tomcat 
 	# run tomcat as root because we don't care and it fixes the shared folder issue
-	sed -i 's/TOMCAT_USER=.*/TOMCAT_USER="root"/' /etc/init.d/tomcat6
+	# sed -i 's/TOMCAT_USER=.*/TOMCAT_USER="root"/' /etc/tomcat/tomcat.conf
+    grep JENKINS_HOME /etc/tomcat/context.xml
+    if [ $? != 0 ];
+    then 
+    	sed -i '/<\/Context>/d' /etc/tomcat/context.xml
+    	echo "<Environment name="JENKINS_HOME" value="/var/lib/tomcat/webapps/jenkins/" type="java.lang.String"/>" >> /etc/tomcat/context.xml
+    	echo "</Context>" >> /etc/tomcat/context.xml   
+    fi
+    systemctl enable tomcat.service
+    systemctl start tomcat.service
+    systemctl status tomcat.service
 else
 	echo "CHECK - Tomcat already installed"
 fi
 
-if [ ! -f /var/lib/tomcat6/webapps/jenkins.war ]; 
+
+if [ ! -f /var/lib/tomcat/webapps/jenkins.war ]; 
 then
 	echo "-------- PROVISIONING JENKINS ------------"
 	echo "------------------------------------------"
-    wget -q -O /var/lib/tomcat6/webapps/jenkins.war http://mirrors.jenkins-ci.org/war/latest/jenkins.war
-    sed -i '/<\/Context>/d' /etc/tomcat6/context.xml
-    echo "<Environment name="JENKINS_HOME" value="/var/lib/tomcat6/webapps/jenkins/" type="java.lang.String"/>" >> /etc/tomcat6/context.xml
-    echo "</Context>" >> /etc/tomcat6/context.xml   
-    service tomcat6 restart
+    wget -q -O /var/lib/tomcat/webapps/jenkins.war http://mirrors.jenkins-ci.org/war/latest/jenkins.war
+    systemctl restart tomcat.service
     sleep 60 
 else
 	echo "CHECK - Jenkins already installed"
 fi
 
-if [ ! -f /var/lib/tomcat6/webapps/gitblit.war ]; 
+
+if [ ! -f /var/lib/tomcat/webapps/gitblit.war ]; 
 then
 	echo "-------- PROVISIONING GITBLIT ---------------"
 	echo "------------------------------------------"
-    wget  -q -O /var/lib/tomcat6/webapps/gitblit.war http://dl.bintray.com/gitblit/releases/gitblit-1.6.2.war
-    service tomcat6 restart
+    wget  -q -O /var/lib/tomcat/webapps/gitblit.war http://dl.bintray.com/gitblit/releases/gitblit-1.6.2.war
+    systemctl restart tomcat.service
     sleep 60
 else
 	echo "CHECK - GitBlit already installed"
 fi
-	echo "-------- RESTARTING TOMCAT ---------------"
-	echo "------------------------------------------"
-    sleep 60
-    service tomcat6 restart
+
+
+echo "-------- RESTARTING TOMCAT ---------------"
+echo "------------------------------------------"
+systemctl restart tomcat.service
+
+
+# echo "-------- Check for Updates ---------------"
+# echo "------------------------------------------"
+# yum -y update |grep "No Packages marked for Update"
+# if [ $? != 0 ];
+# then 
+# 	echo "reboot"
+# else
+# 	echo "System Up to Date!"
+# fi
+

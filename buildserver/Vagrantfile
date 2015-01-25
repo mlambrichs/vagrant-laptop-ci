@@ -11,22 +11,43 @@ Vagrant.configure("2") do |config|
   #config.vm.box_url = "http://puppet-vagrant-boxes.puppetlabs.com/centos-65-x64-virtualbox-nocm.box"
 
   #Puppet
-  config.vm.box = "centos-65-x64-virtualbox-puppet"
-  config.vm.box_url = "http://puppet-vagrant-boxes.puppetlabs.com/centos-65-x64-virtualbox-puppet.box"
+  #config.vm.box = "centos-65-x64-virtualbox-puppet"
+  #config.vm.box_url = "http://puppet-vagrant-boxes.puppetlabs.com/centos-65-x64-virtualbox-puppet.box"
 
+  #CentOS 7.x + Puppet 3.x
+  #config.vm.box = "vStone/centos-7.x-puppet.3.x"
+  #config.vm.box_url = "https://vagrantcloud.com/vStone/centos-7.x-puppet.3.x"
+  #config.vm.box = "centos7"
+  #config.vm.box_url =  "https://f0fff3908f081cb6461b407be80daf97f07ac418.googledrive.com/host/0BwtuV7VyVTSkUG1PM3pCeDJ4dVE/centos7.box"
+
+  #Home made 
+  config.vm.box = "centos7-basic"
+  config.vm.box_url =  "file:///Users/stef/vagrant/personal-boxes/centos7-basic/centos7-basic.box" 
+  config.ssh.pty = true
   config.vm.provider "virtualbox" do |vb|
   #   # Don't boot with headless mode. Use for debugging
-  #   vb.gui = true
+  # vb.gui = true
   # Use VBoxManage to customize the VM. For example to change memory:
   vb.customize ["modifyvm", :id, "--memory", "2048"]
   vb.customize ["modifyvm", :id, "--cpus", "2"]
+  #vb.customize ["modifyvm", :id, "--usb", "off"]
+  #vb.customize ["modifyvm", :id, "--usbehci", "off"]
+  vb.customize ["modifyvm", :id, "--cableconnected1", "on"]
+  vb.customize ["modifyvm", :id, "--cableconnected2", "on"]
+  vb.customize ["modifyvm", :id, "--cableconnected3", "off"]
+  vb.customize ["modifyvm", :id, "--cableconnected4", "off"]
+  vb.customize ["modifyvm", :id, "--cableconnected5", "off"]
 
   # Set the timesync threshold to 10 seconds, instead of the default 20 minutes.
   vb.customize ["guestproperty", "set", :id, "/VirtualBox/GuestAdd/VBoxService/--timesync-set-threshold", 10000]
   #Shares
-  config.vm.synced_folder "tomcat/webapps", "/var/lib/tomcat6/webapps", create:true, owner: "root", group: "root", mount_options: ["dmode=777,fmode=666"]
-  config.vm.synced_folder "tomcat/conf", "/etc/tomcat6", create:true, owner: "root", group: "root", mount_options: ["dmode=777,fmode=666"]
-  config.vm.synced_folder "tomcat/log", "/var/log/tomcat6", create:true, owner: "root", group: "root", mount_options: ["dmode=777,fmode=666"]
+  # config.vm.synced_folder "tomcat/webapps", "/var/lib/tomcat/webapps", create:true, owner: "tomcat", group: "tomcat", mount_options: ["dmode=777,fmode=666"]
+  # config.vm.synced_folder "tomcat/conf", "/etc/tomcat", create:true, owner: "tomcat", group: "tomcat", mount_options: ["dmode=777,fmode=666"]
+  # config.vm.synced_folder "tomcat/log", "/var/log/tomcat", create:true, owner: "tomcat", group: "tomcat", mount_options: ["dmode=777,fmode=666"]
+  #Shares
+  config.vm.synced_folder "tomcat/webapps", "/var/lib/tomcat/webapps", create:true, owner: "vagrant", group: "vagrant", mount_options: ["dmode=777,fmode=666"]
+  config.vm.synced_folder "tomcat/conf", "/etc/tomcat", create:true, owner: "vagrant", group: "vagrant", mount_options: ["dmode=777,fmode=666"]
+  config.vm.synced_folder "tomcat/log", "/var/log/tomcat", create:true, owner: "vagrant", group: "vagrant", mount_options: ["dmode=777,fmode=666"]
 
 
   #---Networking---
@@ -34,7 +55,9 @@ Vagrant.configure("2") do |config|
   # via the IP. Host-only networks can talk to the host machine as well as
   # any other machines on the same network, but cannot be accessed (through this
   # network interface) by any external networks.
-  config.vm.network :private_network, ip: "192.168.33.11"
+  #config.vm.network :private_network, ip: "192.168.33.11", auto_config: false
+  config.vm.network "private_network", ip: "192.168.33.11"
+  config.vm.hostname = "laptop-ci.local"
   
   # Tomcat Port forward 8080 to 8080
   config.vm.network :forwarded_port, guest: 8080, host: 8080, auto_correct: true
