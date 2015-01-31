@@ -57,7 +57,7 @@ Vagrant.configure("2") do |config|
   # network interface) by any external networks.
   #config.vm.network :private_network, ip: "192.168.33.11", auto_config: false
   config.vm.network "private_network", ip: "192.168.33.11"
-  config.vm.hostname = "laptop-ci.local"
+  config.vm.hostname = "laptop-ci.sc-ict.intranet"
   
   # Tomcat Port forward 8080 to 8080
   config.vm.network :forwarded_port, guest: 8080, host: 8080, auto_correct: true
