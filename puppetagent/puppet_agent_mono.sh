@@ -21,12 +21,6 @@ echo "Installing Puppet..."
 export PATH=$PATH:/usr/local/bin
 echo "192.168.33.10 laptop-puppet-master.sc-ict.intranet" >> /etc/hosts
 echo "192.168.33.11 laptop-puppet-agent.sc-ict.intranet" >> /etc/hosts
-cp /vagrant/puppet-enterprise-3.7.1-el-7-x86_64.tar.gz /var/tmp
-cd /var/tmp
-tar zxf puppet-enterprise-3.7.1-el-7-x86_64.tar.gz
-cp /vagrant/puppet-enterprise-uninstaller /var/tmp/puppet-enterprise-3.7.1-el-7-x86_64/
-cd /var/tmp/puppet-enterprise-3.7.1-el-7-x86_64
-./puppet-enterprise-uninstaller -a /vagrant/uninstall_answers.txt
-./puppet-enterprise-installer -a /vagrant/answers.txt
+curl -k https://laptop-puppet-master.sc-ict.intranet:8140/packages/current/install.bash | sudo bash
 ln -s /usr/local/bin/puppet /usr/bin/puppet
 echo "Puppet installed!"

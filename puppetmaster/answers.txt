@@ -37,7 +37,7 @@ q_puppet_cloud_install=n
 # String — An identifying string for this agent node. This per-node ID must be
 # unique across your entire site. Fully qualified domain names are often used
 # as agent certnames.
-q_puppetagent_certname=laptop-puppet.sc-ict.intranet
+q_puppetagent_certname=laptop-puppet-master.sc-ict.intranet
 
 #--------------------------------------------------------------------
 # Puppet Master Answers
@@ -47,12 +47,12 @@ q_puppetagent_certname=laptop-puppet.sc-ict.intranet
 # String — An identifying string for the puppet master. This ID must be unique
 # across your entire site. The server’s fully qualified domain name is often
 # used as the puppet master’s certname.
-q_puppetmaster_certname=laptop-puppet.sc-ict.intranet
+q_puppetmaster_certname=laptop-puppet-master.sc-ict.intranet
 
 # String — Valid DNS names at which the puppet master can be reached. Must be a
 # comma-separated list. In a normal installation, defaults to
 # <hostname>,<hostname.domain>,puppet,puppet.<domain>.
-q_puppetmaster_dnsaltnames=laptop-puppet,laptop-puppet.sc-ict.intranet
+q_puppetmaster_dnsaltnames=laptop-puppet-master,laptop-puppet-master.sc-ict.intranet
 
 # y or n; MUST BE LOWERCASE — Whether to check for updates whenever the pe-httpd
 # service restarts. To get the correct update info, the server will pass some
@@ -86,7 +86,7 @@ q_puppet_enterpriseconsole_auth_password=puppet1234
 # the host name resolves to a private interface (e.g., Amazon EC2). This is set
 # automatically by the installer on EC2 nodes, but can be set manually in
 # environments with multiple hostnames.
-#q_public_hostname=laptop-puppet.sc-ict.intranet
+#q_public_hostname=laptop-puppet-master.sc-ict.intranet
 
 #--------------------------------------------------------------------
 # Database Support Answers

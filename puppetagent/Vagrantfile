@@ -11,7 +11,7 @@ Vagrant.configure("2") do |config|
       # All Vagrant configuration is done here. The most common configuration
       # options are documented and commented below. For a complete reference,
       # please see the online documentation at vagrantup.com.
-      config.vm.hostname = "laptop-puppet-master.sc-ict.intranet"
+      config.vm.hostname = "laptop-puppet-agent.sc-ict.intranet"
       config.vm.box = "centos7-basic"
       config.vm.box_url =  "file:///Users/stef/vagrant/personal-boxes/centos7-basic/centos7-basic.box"   
       config.ssh.pty = true
@@ -19,8 +19,8 @@ Vagrant.configure("2") do |config|
       # Don't boot with headless mode. Use for debugging
       # vb.gui = true
       # Use VBoxManage to customize the VM. For example to change memory:
-      vb.customize ["modifyvm", :id, "--memory", "2048"]
-      vb.customize ["modifyvm", :id, "--cpus", "2"]
+      vb.customize ["modifyvm", :id, "--memory", "1024"]
+      vb.customize ["modifyvm", :id, "--cpus", "1"]
       vb.customize ["modifyvm", :id, "--cableconnected1", "on"]
       vb.customize ["modifyvm", :id, "--cableconnected2", "on"]
       vb.customize ["modifyvm", :id, "--cableconnected3", "off"]
@@ -32,7 +32,7 @@ Vagrant.configure("2") do |config|
       # via the IP. Host-only networks can talk to the host machine as well as
       # any other machines on the same network, but cannot be accessed (through this
       # network interface) by any external networks.
-      config.vm.network :private_network, ip: "192.168.33.10"
+      config.vm.network :private_network, ip: "192.168.33.11"
         
       #Create firewall rules needed for new OSX
       # config.trigger.after [:provision, :up, :reload] do
@@ -58,7 +58,7 @@ Vagrant.configure("2") do |config|
     # config.vm.synced_folder "puppet", "/etc/puppetlabs"
   end
   #config.vm.provision :shell, :path => "echo.sh"
-  config.vm.provision :shell, :path => "puppet_master_mono.sh"
+  config.vm.provision :shell, :path => "puppet_agent_mono.sh"
       #config.vm.provision :shell, :privileged => true, :path => "puppet_master_mono.sh"
       #config.vm.provision :shell, :path => "puppet_r10k.sh"
       #Enable the Puppet provisioner
