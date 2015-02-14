@@ -11,13 +11,12 @@ systemctl status firewalld.service |grep inactive >/dev/null
 if [ $? != 0 ];
     then 
 	echo "-------- Kill Firewall -------------------"
-	echo "------------------------------------------"
 	systemctl stop firewalld.service 2>/dev/null
 	systemctl disable firewalld.service 2>/dev/null
 fi
 
 # Install Puppet
-echo "Installing Puppet..."
+echo "----------- Installing Puppet ------------"
 export PATH=$PATH:/usr/local/bin
 echo "192.168.33.10 laptop-puppet-master.sc-ict.intranet" >> /etc/hosts
 echo "192.168.33.11 laptop-puppet-agent.sc-ict.intranet" >> /etc/hosts
@@ -29,4 +28,13 @@ cd /var/tmp/puppet-enterprise-3.7.1-el-7-x86_64
 ./puppet-enterprise-uninstaller -a /vagrant/uninstall_answers.txt
 ./puppet-enterprise-installer -a /vagrant/answers.txt
 ln -s /usr/local/bin/puppet /usr/bin/puppet
-echo "Puppet installed!"
+export PATH=$PATH:/opt/puppet/bin
+echo "----------- Puppet installed -------------"
+echo "----------- Installing GIT ---------------"
+yum install -y git
+echo "----------- Done installing GIT ----------"
+echo "----------- Installing r10k --------------"
+#/opt/puppet/bin/gem install r10k
+puppet module install zack/r10k
+echo "----------- Done installing r10k ---------"
+echo "----------- Done installing Puppet Master "
