@@ -12,7 +12,7 @@ echo "192.168.33.22 pe-agent-test.sc-ict.intranet" >> /etc/hosts
 echo "192.168.33.23 pe-agent-acceptance.sc-ict.intranet" >> /etc/hosts
 echo "192.168.33.24 pe-agent-production.sc-ict.intranet" >> /etc/hosts
 echo "192.168.33.12 laptop-buildserver.sc-ict.intranet" >> /etc/hosts
-echo "PATH=$PATH:/opt/puppet/bin:/usr/local/bin" >> /root/.bash_profile
+echo "export PATH=$PATH:/opt/puppet/bin:/usr/local/bin:$HOME/bin" >> /root/.bash_profile
 .  /root/.bash_profile
 echo "----------- Installing GIT ---------------"
 yum install -y git
