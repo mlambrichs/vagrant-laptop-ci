@@ -19,8 +19,8 @@ fi
 # Install Puppet
 echo "Installing Puppet..."
 export PATH=$PATH:/usr/local/bin
-echo "192.168.33.10 laptop-puppet-master.sc-ict.intranet" >> /etc/hosts
-echo "192.168.33.11 laptop-puppet-agent.sc-ict.intranet" >> /etc/hosts
+echo "192.168.33.10 laptop-puppet-master.sc-ict.intranet laptop-puppet-master puppet-master master" >> /etc/hosts
+echo "192.168.33.11 laptop-puppet-agent.sc-ict.intranet laptop-puppet-agent puppet-agent agent" >> /etc/hosts
 curl -k https://laptop-puppet-master.sc-ict.intranet:8140/packages/current/install.bash | sudo bash
 ln -s /usr/local/bin/puppet /usr/bin/puppet
 echo "Puppet installed!"
