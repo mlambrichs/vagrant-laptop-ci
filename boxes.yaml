@@ -1,0 +1,7 @@
+---
+vagrant-debian-wheezy:
+  url: ../vagrant.box/vagrant-debian-wheezy.box
+  checksum: 45086a481244c50239babd3733cb69d
+centos7-basic:
+  url: file:///Users/stef/vagrant/personal-boxes/centos7-basic/centos7-basic.box
+  checksum:
