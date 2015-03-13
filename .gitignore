@@ -1,5 +1,7 @@
+*~
+[#]*[#]
+.\#*
 .vagrant
 .DS_Store
 *.gz
 *.tar
-*~  
