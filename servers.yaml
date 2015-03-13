@@ -1,0 +1,31 @@
+---
+-- name: laptop-puppet-master
+   hostname: laptop-puppet-master.sc-ict.intranet
+   box: centos7-basic
+   ram: 2048
+   cpus: 2
+
+-- name: pe-agent-development
+   hostname: pe-agent-development.sc-ict.intranet
+   box: centos7-basic
+   ram: 1024
+   cpus: 1
+   ip: 192.168.33.21
+-- name: pe-agent-test
+   hostname: pe-agent-test.sc-ict.intranet
+   box: centos7-basic
+   ram: 1024
+   cpus: 1
+   ip: 192.168.33.22
+-- name: pe-agent-acceptance
+   hostname: pe-agent-acceptance.sc-ict.intranet
+   box: centos7-basic
+   ram: 1024
+   cpus: 1
+   ip: 192.168.33.23
+-- name: pe-agent-production
+   hostname: pe-agent-production.sc-ict.intranet
+   box: centos7-basic
+   ram: 1024
+   cpus: 1
+   ip: 192.168.33.24
