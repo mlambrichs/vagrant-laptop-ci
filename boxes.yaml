@@ -3,5 +3,9 @@ vagrant-debian-wheezy:
   url: ../vagrant.box/vagrant-debian-wheezy.box
   checksum: 45086a481244c50239babd3733cb69d
 centos7-basic:
-  url: file:///Users/stef/vagrant/personal-boxes/centos7-basic/centos7-basic.box
-  checksum:
+  url: file:///Users/marc/Documents/dev/vagrant/boxes/centos7-basic.box
+  checksum: 92daa347279583467e3be363bb0ade33
+centos65:
+  url: file:///Users/marc/Documents/dev/vagrant/boxes/centos65-x86_64-20140116.box
+  checksum: c6518b158f7babd09dcccc30eb3d9333
+
