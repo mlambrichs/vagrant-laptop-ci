@@ -33,6 +33,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
           srv.vm.network "forwarded_port", guest: port["guest"], host: port["host"]
         end
       end
+      config.vm.provision "hosts" do |provisioner|
+        provisioner.add.host servers["ip"], servers["hosts"]
+      end
     end
   end
 end

@@ -10,21 +10,33 @@
   ram: 1024
   cpus: 1
   ip: 192.168.33.21
+  hosts:
+    - pe-agent-development.sc-ict.intranet
+    - pe-agent-development
 - name: pe-agent-test
   hostname: pe-agent-test.sc-ict.intranet
   box: centos65
   ram: 1024
   cpus: 1
   ip: 192.168.33.22
+  hosts:
+    - pe-agent-test.sc-ict.intranet
+    - pe-agent-test
 - name: pe-agent-acceptance
   hostname: pe-agent-acceptance.sc-ict.intranet
   box: centos65
   ram: 1024
   cpus: 1
   ip: 192.168.33.23
+  hosts:
+    - pe-agent-acceptance.sc-ict.intranet
+    - pe-agent-acceptance
 - name: pe-agent-production
   hostname: pe-agent-production.sc-ict.intranet
   box: centos65
   ram: 1024
   cpus: 1
   ip: 192.168.33.24
+  hosts:
+    - pe-agent-production.sc-ict.intranet
+    - pe-agent-production
