@@ -1,5 +1,6 @@
 ---
 - name: puppetmaster
+  role: master
   hostname: puppetmaster.itc.intranet
   box: centos65
   ram: 2048
@@ -11,6 +12,7 @@
     - guest: 8080
       host: 8080
 - name: puppetagent
+  role: agent
   hostname: puppetagent.itc.intranet
   box: centos65
   ram: 1024

@@ -14,6 +14,9 @@ servers = YAML.load_file('servers.yaml')
 boxes = YAML.load_file('boxes.yaml')
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  config.pe_build.download_root = 'https://s3.amazonaws.com/pe-builds/released/3.7.1'
+  config.pe_build.version       = '3.7.1'
+  config.pe_build.filename      = 'puppet-enterprise-3.7.1-e1-7-x86_64.tar.gz'
 
   servers.each do |server|
 
@@ -35,6 +38,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         end
       end
       srv.vm.provision :hosts
+
+      # Setup PE
+      node.vm.provision :pe_bootstrap do |provisioner|
+        provisioner.answer_file = 'answers.txt'
+        provisioner.role = server["role"]
+      end
     end
   end
 end
