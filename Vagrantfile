@@ -40,7 +40,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       srv.vm.provision :hosts
 
       # Setup PE
-      node.vm.provision :pe_bootstrap do |provisioner|
+      srv.vm.provision :pe_bootstrap do |provisioner|
         provisioner.answer_file = server["answers"]
         provisioner.role = server["role"]
       end
