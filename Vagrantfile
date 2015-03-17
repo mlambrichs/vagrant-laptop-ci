@@ -38,6 +38,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         end
       end
       srv.vm.provision :hosts
+      if server["synced_folders"]
+        server["synced_folders"].each do |folder|
+          srv.vm.synced_folder folder["src"], folder["dst"]
+        end
+      end
 
       if server["role"].eql? "master"
         # Setup PE
