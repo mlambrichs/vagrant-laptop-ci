@@ -6,6 +6,6 @@ centos7-basic:
   url: file:///Users/marc/Documents/dev/vagrant/boxes/centos7-basic.box
   checksum: 92daa347279583467e3be363bb0ade33
 centos65:
-  url: file:///Users/marc/Documents/dev/vagrant/boxes/centos65-x86_64-20140116.box
+  url: file:///Users/marc/Documents/dev/vagrant/boxes/centos65-x86_64-20150317.box
   checksum: c6518b158f7babd09dcccc30eb3d9333
 
