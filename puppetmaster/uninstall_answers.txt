@@ -1,2 +1,0 @@
-q_pe_uninstall=y
-q_pe_purge=y
