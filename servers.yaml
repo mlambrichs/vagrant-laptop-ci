@@ -19,7 +19,6 @@
       dst: /var/lib/hiera
 - name: puppetagent
   role: agent
-  answers: doc/answers/agent.txt
   hostname: puppetagent.itc.intranet
   box: centos65
   ram: 1024
