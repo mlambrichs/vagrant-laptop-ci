@@ -41,7 +41,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
       # Setup PE
       node.vm.provision :pe_bootstrap do |provisioner|
-        provisioner.answer_file = 'answers.txt'
+        provisioner.answer_file = server["answers"]
         provisioner.role = server["role"]
       end
     end
