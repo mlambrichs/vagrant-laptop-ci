@@ -1,20 +1,18 @@
 ---
 - name: puppetmaster
   role: master
-  answers: doc/master.txt
+  answers: doc/answers/master.txt
   hostname: puppetmaster.itc.intranet
   box: centos65
   ram: 2048
   cpus: 2
   ip: 192.168.33.10
   ports:
-    - guest: 443
-      host: 1443
-    - guest: 8080
-      host: 8080
+    - guest: 3000
+      host: 3000
 - name: puppetagent
   role: agent
-  answers: doc/agent.txt
+  answers: doc/answers/agent.txt
   hostname: puppetagent.itc.intranet
   box: centos65
   ram: 1024

@@ -16,7 +16,7 @@ boxes = YAML.load_file('boxes.yaml')
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.pe_build.download_root = 'https://s3.amazonaws.com/pe-builds/released/3.7.1'
   config.pe_build.version       = '3.7.1'
-  config.pe_build.filename      = 'puppet-enterprise-3.7.1-e1-7-x86_64.tar.gz'
+  config.pe_build.filename      = 'puppet-enterprise-3.7.1-el-6-x86_64.tar.gz'
 
   servers.each do |server|
 

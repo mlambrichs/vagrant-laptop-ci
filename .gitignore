@@ -1,6 +1,7 @@
 *~
 [#]*[#]
 .\#*
+.pe_build
 .vagrant
 .DS_Store
 *.gz
