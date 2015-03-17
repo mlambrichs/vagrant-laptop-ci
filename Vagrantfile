@@ -39,10 +39,17 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       end
       srv.vm.provision :hosts
 
-      # Setup PE
-      srv.vm.provision :pe_bootstrap do |provisioner|
-        provisioner.answer_file = server["answers"]
-        provisioner.role = server["role"]
+      if server["role"].eql? "master"
+        # Setup PE
+        srv.vm.provision :pe_bootstrap do |provisioner|
+          provisioner.answer_file = server["answers"]
+          provisioner.role = server["role"]
+        end
+      else 
+        $sh = <<END
+curl -k https://puppetmaster:8140/packages/current/install.bash | sudo bash
+END
+        srv.vm.provision :shell, inline: $sh
       end
     end
   end
