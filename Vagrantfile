@@ -2,6 +2,7 @@ VAGRANTFILE_API_VERSION = "2"
 
 require 'yaml'
 
+# Necessary shell cmdl's
 $install_puppet_on_client = <<END
 curl -k https://puppetmaster:8140/packages/current/install.bash | sudo bash
 END
@@ -9,6 +10,7 @@ $install_r10k = <<END
 /opt/puppet/bin/gem install r10k
 END
 
+# Check plugins
 plugins = ["vagrant-hosts", "vagrant-pe_build", "vagrant-vbguest"]
 plugins.each do |plugin|
   unless Vagrant.has_plugin?(plugin)
@@ -16,7 +18,7 @@ plugins.each do |plugin|
   end
 end
 
-# Read YAML file with box details
+# Read YAML file with server and box details
 servers = YAML.load_file('servers.yaml')
 boxes = YAML.load_file('boxes.yaml')
 
