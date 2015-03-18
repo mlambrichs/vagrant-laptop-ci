@@ -59,8 +59,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
           provisioner.answer_file = server["answers"]
           provisioner.role = server["role"]
         end
+        # Install R10k
         srv.vm.provision :shell, inline: $install_r10k
       else 
+        # Install puppet
         srv.vm.provision :shell, inline: $install_puppet_on_client
       end
     end
