@@ -2,6 +2,13 @@ VAGRANTFILE_API_VERSION = "2"
 
 require 'yaml'
 
+$install_puppet_on_client = <<END
+curl -k https://puppetmaster:8140/packages/current/install.bash | sudo bash
+END
+$install_r10k = <<END
+/opt/puppet/bin/gem install r10k
+END
+
 plugins = ["vagrant-hosts", "vagrant-pe_build", "vagrant-vbguest"]
 plugins.each do |plugin|
   unless Vagrant.has_plugin?(plugin)
@@ -50,11 +57,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
           provisioner.answer_file = server["answers"]
           provisioner.role = server["role"]
         end
+        srv.vm.provision :shell, inline: $install_r10k
       else 
-        $sh = <<END
-curl -k https://puppetmaster:8140/packages/current/install.bash | sudo bash
-END
-        srv.vm.provision :shell, inline: $sh
+        srv.vm.provision :shell, inline: $install_puppet_on_client
       end
     end
   end
