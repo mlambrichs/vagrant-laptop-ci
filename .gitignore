@@ -8,3 +8,5 @@
 *.iso
 *.swp
 *.tar
+**/profile/
+**/stack/
