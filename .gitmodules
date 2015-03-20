@@ -1,6 +1,0 @@
-[submodule "puppet/modules/puppetlabs-stdlib"]
-	path = puppet/modules/puppetlabs-stdlib
-	url = https://github.com/puppetlabs/puppetlabs-stdlib.git
-[submodule "puppet/modules/puppet-elasticsearch"]
-	path = puppet/modules/puppet-elasticsearch
-	url = https://github.com/elastic/puppet-elasticsearch.git
