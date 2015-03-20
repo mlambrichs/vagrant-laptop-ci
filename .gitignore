@@ -8,3 +8,5 @@
 *.iso
 *.swp
 *.tar
+**/puppet/modules/*
+**/environments/*/modules/*
