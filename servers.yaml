@@ -11,8 +11,10 @@
     - guest: 3000
       host: 3000
   synced_folders:
-    - src: puppet
-      dst: /etc/puppetlabs/puppet
+    - src: puppet/modules
+      dst: /etc/puppetlabs/puppet/modules
+    - src: puppet/environments
+      dst: /etc/puppetlabs/puppet/environments
     - src: hiera/
       dst: /var/lib/hiera
 - name: puppetagent
