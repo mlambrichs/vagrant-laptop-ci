@@ -8,5 +8,5 @@
 *.iso
 *.swp
 *.tar
-**/profile/
-**/stack/
+**/puppet/modules/*
+**/environments/*/modules/*
