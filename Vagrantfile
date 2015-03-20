@@ -46,13 +46,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
           srv.vm.network "forwarded_port", guest: port["guest"], host: port["host"]
         end
       end
-      srv.vm.provision :hosts
       if server["synced_folders"]
         server["synced_folders"].each do |folder|
           srv.vm.synced_folder folder["src"], folder["dst"]
         end
       end
-
+      srv.vm.provision :hosts
+      
       if server["role"].eql? "master"
         # Setup PE
         srv.vm.provision :pe_bootstrap do |provisioner|
