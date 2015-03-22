@@ -57,8 +57,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
           /opt/puppet/bin/gem install r10k
           # stop firewall
           /etc/init.d/iptables stop
-          cp /vagrant/autosign.conf /etc/puppetlabs/puppet/autosign.conf
-          cp /vagrant/puppet.conf /etc/puppetlabs/puppet/puppet.conf
+          cp /vagrant/files/autosign.conf /etc/puppetlabs/puppet/autosign.conf
+          cp /vagrant/files/puppet.conf /etc/puppetlabs/puppet/puppet.conf
           /etc/init.d/pe-puppetserver restart
         SHELL
       else 
