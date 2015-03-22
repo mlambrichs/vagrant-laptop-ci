@@ -51,9 +51,16 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
           provisioner.answer_file = server["answers"]
           provisioner.role = server["role"]
         end
-        # Install R10k
-        srv.vm.provision :shell, inline: "/opt/puppet/bin/gem install r10k && sudo /etc/init.d/iptables stop && sudo cp /vagrant/autosign.conf /etc/puppetlabs/puppet/autosign.conf"
-        srv.vm.provision :shell, inline: "cp /vagrant/puppet.conf /etc/puppetlabs/puppet/puppet.conf && sudo /etc/init.d/pe-puppetserver restart"
+        # Run shell provisioner
+        srv.vm.provision :shell, :inline => <<-SHELL
+          # Install R10k
+          /opt/puppet/bin/gem install r10k
+          # stop firewall
+          /etc/init.d/iptables stop
+          cp /vagrant/autosign.conf /etc/puppetlabs/puppet/autosign.conf
+          cp /vagrant/puppet.conf /etc/puppetlabs/puppet/puppet.conf
+          /etc/init.d/pe-puppetserver restart
+        SHELL
       else 
         # Install puppet
         srv.vm.provision :shell, inline: "curl -k https://puppetmaster:8140/packages/current/install.bash | sudo bash"
