@@ -13,10 +13,13 @@
   synced_folders:
     - src: hiera/
       dst: /var/lib/hiera
-- name: puppetagent
+- name: lrv13725
   role: agent
-  hostname: puppetagent.itc.intranet
+  hostname: lrv13725.itc.intranet
   box: centos65
   ram: 1024
   cpus: 1
   ip: 192.168.33.21
+  ports:
+    - guest: 9200
+      host: 9200
